@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright © 2020 Tinkoff Bank
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="8dp"
+            android:paddingTop="16dp">
+
+            <ImageView
+                style="@style/BookCoverImageView"
+                android:id="@+id/iv_book_cover"
+                android:src="@drawable/cover_1"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                style="@style/BookTitleTextView"
+                android:id="@+id/tv_book_title"
+                tools:text="Название книги" />
+
+            <LinearLayout
+                style="@style/BookListItem"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/BookDetailsInfoTitleTextView"
+                    android:text="@string/author" />
+
+                <TextView
+                    style="@style/BookDetailsInfoValueTextView"
+                    android:id="@+id/tv_book_author"
+                    tools:text="Имя Автора" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/BookListItem"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/BookDetailsInfoTitleTextView"
+                    android:text="@string/year" />
+
+                <TextView
+                    style="@style/BookDetailsInfoValueTextView"
+                    android:id="@+id/tv_book_year"
+                    tools:text="Год выпуска" />
+
+            </LinearLayout>
+
+            <View style="@style/Divider" />
+
+            <TextView
+                style="@style/BookListItem"
+                android:id="@+id/tv_book_annotation"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:textAppearance="@style/BookAnnotation"
+                tools:text="Аннотация на " />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        style="@style/PriceBottomLayer"
+        android:gravity="left"
+        android:paddingTop="4dp">
+
+        <TextView
+            style="@style/PriceWhiteTextView"
+            android:fontFamily="@font/roboto_regular"
+            android:id="@+id/tv_book_price"
+            android:layout_marginLeft="14dp"
+            android:textStyle="bold"
+            tools:text="20 Р" />
+
+        <TextView
+            style="@style/WhiteButtonBorderless"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:id="@+id/btn_add_to_cart"
+            android:layout_marginLeft="8dp"
+            android:text="@string/add_to_cart" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/PriceBottomLayer"
+        android:padding="8dp">
+
+        <include
+            layout="@layout/googlepay_button_white"
+            android:id="@+id/btn_google_pay"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <include
+            layout="@layout/sbp_button_white"
+            android:id="@+id/btn_fps_pay"
+            android:visibility="visible"
+            tools:visibility="visible" />
+
+        <TextView
+            style="@style/WhiteButton"
+            android:gravity="center"
+            android:id="@+id/btn_buy_now"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:text="@string/buy_now" />
+
+    </LinearLayout>
+
+</LinearLayout>

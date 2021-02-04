@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright © 2020 Tinkoff Bank
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <TextView
+        style="@style/PriceBlueTextView"
+        android:gravity="center"
+        android:id="@+id/tv_empty_cart"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:text="@string/empty_cart"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/ll_cart_content"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/lv_cart_items"
+                android:layout_height="0dp"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent" />
+
+            <RelativeLayout
+                android:background="@drawable/background_gray_total_price"
+                android:gravity="center"
+                android:layout_height="55dp"
+                android:layout_margin="12dp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <TextView
+                    android:fontFamily="@font/roboto_regular"
+                    android:layout_alignParentStart="true"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/total_sum"
+                    android:textColor="@color/common_black" />
+
+                <TextView
+                    android:fontFamily="@font/roboto_regular"
+                    android:id="@+id/tv_total_price"
+                    android:layout_alignParentEnd="true"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/common_black"
+                    tools:text="20 Р" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingTop="26dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="8dp"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/btn_google_pay"
+                android:id="@+id/btn_google_pay"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <include
+                layout="@layout/btn_fps_pay"
+                android:id="@+id/btn_fps_pay" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Widget.Button"
+                android:background="@drawable/btn_background_gray"
+                android:gravity="center"
+                android:id="@+id/card_pay"
+                android:layout_height="56dp"
+                android:layout_margin="4dp"
+                android:layout_width="match_parent"
+                android:text="@string/buy_with_card"
+                android:textAllCaps="true"
+                android:textColor="@color/common_black"
+                android:textSize="@dimen/acq_medium_text_size"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
