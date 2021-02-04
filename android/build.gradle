@@ -1,4 +1,4 @@
-// group 'eu.nk2.tinkoff_acquiring_sdk'
+group 'eu.nk2.tinkoff_acquiring_sdk'
 version '1.0-SNAPSHOT'
 
 buildscript {
