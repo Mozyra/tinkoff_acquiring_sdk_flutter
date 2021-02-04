@@ -1,6 +1,4 @@
 group 'eu.nk2.tinkoff_acquiring_sdk'
-apply plugin: 'tinkoff'
-apply from: 'tinkoff'
 version '1.0-SNAPSHOT'
 
 buildscript {
