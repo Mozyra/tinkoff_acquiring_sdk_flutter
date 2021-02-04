@@ -18,6 +18,9 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
+        tasks.withType(Javadoc) {
+            options.addStringOption('encoding', 'UTF-8')
+        }
     }
 }
 
