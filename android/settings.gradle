@@ -1,2 +1,2 @@
 rootProject.name = 'tinkoff_acquiring_sdk'
-include: ':sdk:tinkoff:ui:2.3.1'
+include: ':tinkoff:ui', ':tinkoff:cardio', ':tinkoff'
