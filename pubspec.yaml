@@ -34,8 +34,6 @@ flutter:
       android:
         package: eu.nk2.tinkoff_acquiring_sdk
         pluginClass: TinkoffAcquiringSdkPlugin
-      ios:
-        pluginClass: TinkoffAcquiringSdkPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
