@@ -30,15 +30,6 @@ class TinkoffAcquiringSdk {
   /// Enable logging and usage of debug Tinkoff API servers
   final bool enableDebug;
 
-  /// Terminal key given to you by Tinkoff
-  //final String terminalKey;
-
-  /// Password given to you by Tinkoff
-  //final String password;
-
-  /// Public key given to you by Tinkoff
-  //final String publicKey;
-
   /// (!) Android specific
   /// Enables google pay and calls its initialization routine
   final bool enableGooglePay;
@@ -147,9 +138,16 @@ class TinkoffAcquiringSdk {
     return status;
   }
 
-  Future<TinkoffCommonResponse> setCredentials({@required dynamic json}) async {
-    final Map<dynamic, dynamic> response =
-        await _channel.invokeMethod('setCredentials', json);
+  Future<TinkoffCommonResponse> setCredentials(
+      {@required String terminalKey,
+      @required String password,
+      @required String publicKey}) async {
+    final Map<dynamic, dynamic> response = await _channel.invokeMethod(
+        'setCredentials', {
+      'terminalKey': terminalKey,
+      'password': password,
+      'publicKey': publicKey
+    });
     final TinkoffCommonResponse status =
         TinkoffCommonResponse.fromJson(response.cast<String, dynamic>());
 
