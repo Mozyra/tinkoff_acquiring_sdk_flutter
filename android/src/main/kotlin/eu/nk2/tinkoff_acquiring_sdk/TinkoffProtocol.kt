@@ -84,6 +84,7 @@ fun TinkoffFeaturesOptions.toTinkoff(): FeaturesOptions {
     options.useSecureKeyboard = enableSecureKeyboard
     if(enableCameraCardScanner) options.cameraCardScanner = CameraCardIOScanner()
     options.darkThemeMode = darkThemeMode
+    options.theme = R.style.AcquiringTheme_Base
     options.localizationSource = AsdkSource(language)
     options.emailRequired = false
     return options

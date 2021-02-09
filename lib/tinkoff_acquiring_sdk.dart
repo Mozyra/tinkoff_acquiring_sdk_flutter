@@ -53,9 +53,6 @@ class TinkoffAcquiringSdk {
 
   TinkoffAcquiringSdk({
     this.enableDebug = false,
-    // @required this.terminalKey,
-    // @required this.password,
-    // @required this.publicKey,
     this.enableGooglePay = false,
     this.requireAddress = false,
     this.requirePhone = false,
@@ -78,9 +75,6 @@ class TinkoffAcquiringSdk {
     final Map<dynamic, dynamic> response =
         await _channel.invokeMethod('initialize', {
       'enableDebug': this.enableDebug,
-      // 'terminalKey': this.terminalKey,
-      // 'password': this.password,
-      // 'publicKey': this.publicKey.replaceAll('\n', ''), //iOS shits about it
       'enableGooglePay': this.enableGooglePay,
       'requireAddress': this.requireAddress,
       'requirePhone': this.requirePhone,

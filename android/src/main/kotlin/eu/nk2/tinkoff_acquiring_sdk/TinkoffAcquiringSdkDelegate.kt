@@ -45,6 +45,10 @@ class TinkoffAcquiringSdkDelegate(private val activityDelegate: ActivityDelegate
         localEnableGooglePay = enableGooglePay
         localRequireAddress = requireAddress
         localRequirePhone = requirePhone
+        if(localEnableDebug) {
+            AcquiringSdk.isDeveloperMode = true
+            AcquiringSdk.isDebug = true
+        }
         return TinkoffAcquiringDelegateInitializeResponse(status = TinkoffAcquiringDelegateInitializeStatus.RESULT_OK)
     }
 
@@ -54,10 +58,6 @@ class TinkoffAcquiringSdkDelegate(private val activityDelegate: ActivityDelegate
             publicKey: String
     ): TinkoffAcquiringDelegateSetCredentialsResponse {
         tinkoffAcquiring = TinkoffAcquiring(terminalKey, password, publicKey)
-        if(localEnableDebug) {
-            AcquiringSdk.isDeveloperMode = true
-            AcquiringSdk.isDebug = true
-        }
         return if(!localEnableDebug) TinkoffAcquiringDelegateSetCredentialsResponse(status = TinkoffAcquiringDelegateSetCredentialsStatus.RESULT_OK)
         else {
             googlePayHelper = GooglePayHelper(GooglePayParams(
