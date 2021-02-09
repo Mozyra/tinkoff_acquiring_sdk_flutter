@@ -153,7 +153,7 @@ class TinkoffAcquiringSdk {
     return status;
   }
 
-  Future<TinkoffCommonResponse> setCredentials({@required String json}) async {
+  Future<TinkoffCommonResponse> setCredentials({@required dynamic json}) async {
     final Map<dynamic, dynamic> response =
         await _channel.invokeMethod('setCredentials', json);
     final TinkoffCommonResponse status =
