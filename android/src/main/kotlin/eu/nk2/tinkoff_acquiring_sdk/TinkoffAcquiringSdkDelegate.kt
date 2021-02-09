@@ -17,44 +17,60 @@ class TinkoffAcquiringSdkDelegate(private val activityDelegate: ActivityDelegate
 
     private var tinkoffAcquiring: TinkoffAcquiring? = null
     private var googlePayHelper: GooglePayHelper? = null
+    private var localEnableDebug: Boolean = false
+    private var localEnableGooglePay: Boolean = false
+    private var localRequireAddress: Boolean = false
+    private var localRequirePhone: Boolean = false
 
 
     data class TinkoffAcquiringDelegateInitializeResponse(
         val status: TinkoffAcquiringDelegateInitializeStatus
     )
+
+    data class TinkoffAcquiringDelegateSetCredentialsResponse(
+        val status: TinkoffAcquiringDelegateSetCredentialsStatus
+    )
+    enum class TinkoffAcquiringDelegateSetCredentialsStatus { RESULT_OK, GOOGLE_PAY_NOT_AVAILABLE, FLUTTER_NOT_INITIALIZED, PLUGIN_ALREADY_INITIALIZED }
     enum class TinkoffAcquiringDelegateInitializeStatus { RESULT_OK, GOOGLE_PAY_NOT_AVAILABLE, FLUTTER_NOT_INITIALIZED, PLUGIN_ALREADY_INITIALIZED }
     suspend fun initialize(
         enableDebug: Boolean,
-        terminalKey: String,
-        password: String,
-        publicKey: String,
         enableGooglePay: Boolean,
         requireAddress: Boolean,
         requirePhone: Boolean
     ): TinkoffAcquiringDelegateInitializeResponse {
         if(activityDelegate.activity !is FragmentActivity) error("Plugin cannot be initialized if activity you are using does not extend FlutterFragmentActivity")
         if(activityDelegate.activity == null || activityDelegate.context == null) return TinkoffAcquiringDelegateInitializeResponse(status = TinkoffAcquiringDelegateInitializeStatus.FLUTTER_NOT_INITIALIZED)
-        if(tinkoffAcquiring != null || googlePayHelper != null) return TinkoffAcquiringDelegateInitializeResponse(status = TinkoffAcquiringDelegateInitializeStatus.PLUGIN_ALREADY_INITIALIZED)
 
+        localEnableDebug = enableDebug
+        localEnableGooglePay = enableGooglePay
+        localRequireAddress = requireAddress
+        localRequirePhone = requirePhone
+        return TinkoffAcquiringDelegateInitializeResponse(status = TinkoffAcquiringDelegateInitializeStatus.RESULT_OK)
+    }
+
+    suspend fun setCredentials(
+            terminalKey: String,
+            password: String,
+            publicKey: String
+    ): TinkoffAcquiringDelegateSetCredentialsResponse {
         tinkoffAcquiring = TinkoffAcquiring(terminalKey, password, publicKey)
-        if(enableDebug) {
+        if(localEnableDebug) {
             AcquiringSdk.isDeveloperMode = true
             AcquiringSdk.isDebug = true
         }
-
-        return if(!enableGooglePay) TinkoffAcquiringDelegateInitializeResponse(status = TinkoffAcquiringDelegateInitializeStatus.RESULT_OK)
+        return if(!localEnableDebug) TinkoffAcquiringDelegateSetCredentialsResponse(status = TinkoffAcquiringDelegateSetCredentialsStatus.RESULT_OK)
         else {
             googlePayHelper = GooglePayHelper(GooglePayParams(
-                terminalKey = terminalKey,
-                environment = if (enableDebug) WalletConstants.ENVIRONMENT_TEST else WalletConstants.ENVIRONMENT_PRODUCTION,
-                isAddressRequired = requireAddress,
-                isPhoneRequired = requirePhone
+                    terminalKey = terminalKey,
+                    environment = if (localEnableDebug) WalletConstants.ENVIRONMENT_TEST else WalletConstants.ENVIRONMENT_PRODUCTION,
+                    isAddressRequired = localRequireAddress,
+                    isPhoneRequired = localRequirePhone
             ))
 
             suspendCoroutine { sink -> googlePayHelper!!.initGooglePay(activityDelegate.context!!) { ready ->
                 sink.resume(
-                    if(ready) TinkoffAcquiringDelegateInitializeResponse(status = TinkoffAcquiringDelegateInitializeStatus.RESULT_OK)
-                    else TinkoffAcquiringDelegateInitializeResponse(status = TinkoffAcquiringDelegateInitializeStatus.GOOGLE_PAY_NOT_AVAILABLE)
+                        if(ready) TinkoffAcquiringDelegateSetCredentialsResponse(status = TinkoffAcquiringDelegateSetCredentialsStatus.RESULT_OK)
+                        else TinkoffAcquiringDelegateSetCredentialsResponse(status = TinkoffAcquiringDelegateSetCredentialsStatus.GOOGLE_PAY_NOT_AVAILABLE)
                 )
             } }
         }

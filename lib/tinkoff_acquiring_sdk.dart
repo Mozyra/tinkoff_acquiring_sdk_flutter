@@ -31,13 +31,13 @@ class TinkoffAcquiringSdk {
   final bool enableDebug;
 
   /// Terminal key given to you by Tinkoff
-  final String terminalKey;
+  //final String terminalKey;
 
   /// Password given to you by Tinkoff
-  final String password;
+  //final String password;
 
   /// Public key given to you by Tinkoff
-  final String publicKey;
+  //final String publicKey;
 
   /// (!) Android specific
   /// Enables google pay and calls its initialization routine
@@ -53,16 +53,13 @@ class TinkoffAcquiringSdk {
 
   TinkoffAcquiringSdk({
     this.enableDebug = false,
-    @required this.terminalKey,
-    @required this.password,
-    @required this.publicKey,
+    // @required this.terminalKey,
+    // @required this.password,
+    // @required this.publicKey,
     this.enableGooglePay = false,
     this.requireAddress = false,
     this.requirePhone = false,
-  })  : assert(terminalKey != null),
-        assert(password != null),
-        assert(publicKey != null),
-        assert(!enableGooglePay || (enableGooglePay && Platform.isAndroid));
+  }) : assert(!enableGooglePay || (enableGooglePay && Platform.isAndroid));
 
   /// Initialize SDK
   ///
@@ -81,9 +78,9 @@ class TinkoffAcquiringSdk {
     final Map<dynamic, dynamic> response =
         await _channel.invokeMethod('initialize', {
       'enableDebug': this.enableDebug,
-      'terminalKey': this.terminalKey,
-      'password': this.password,
-      'publicKey': this.publicKey.replaceAll('\n', ''), //iOS shits about it
+      // 'terminalKey': this.terminalKey,
+      // 'password': this.password,
+      // 'publicKey': this.publicKey.replaceAll('\n', ''), //iOS shits about it
       'enableGooglePay': this.enableGooglePay,
       'requireAddress': this.requireAddress,
       'requirePhone': this.requirePhone,
@@ -142,6 +139,23 @@ class TinkoffAcquiringSdk {
       'language': _mapLanguageToPlatform(language)
     });
 
+    final TinkoffCommonResponse status =
+        TinkoffCommonResponse.fromJson(response.cast<String, dynamic>());
+
+    if (status.status == TinkoffAcquiringCommonStatus.ERROR_NO_ACTIVITY)
+      throw TinkoffError(message: 'Plugin is running without activity.');
+
+    if (status.status == TinkoffAcquiringCommonStatus.ERROR_NOT_INITIALIZED)
+      throw TinkoffError(message: 'Plugin is not initialized.');
+
+    if (status.error != null) throw TinkoffError(message: status.error);
+
+    return status;
+  }
+
+  Future<TinkoffCommonResponse> setCredentials({@required String json}) async {
+    final Map<dynamic, dynamic> response =
+        await _channel.invokeMethod('setCredentials', json);
     final TinkoffCommonResponse status =
         TinkoffCommonResponse.fromJson(response.cast<String, dynamic>());
 
@@ -246,57 +260,6 @@ class TinkoffAcquiringSdk {
       'enableCameraCardScanner': enableCameraCardScanner,
       'darkThemeMode': _mapEnumToString(darkThemeMode),
       'language': _mapLanguageToPlatform(language)
-    });
-
-    final TinkoffCommonResponse status =
-        TinkoffCommonResponse.fromJson(response.cast<String, dynamic>());
-
-    if (status.status == TinkoffAcquiringCommonStatus.ERROR_NO_ACTIVITY)
-      throw TinkoffError(message: 'Plugin is running without activity.');
-
-    if (status.status == TinkoffAcquiringCommonStatus.ERROR_NOT_INITIALIZED)
-      throw TinkoffError(message: 'Plugin is not initialized.');
-
-    if (status.error != null) throw TinkoffError(message: status.error);
-
-    return status;
-  }
-
-  /// (!) iOS-specific
-  /// Open apple pay payment process screen
-  Future<TinkoffCommonResponse> openApplePay(
-      {String orderId,
-      String title,
-      String description,
-      double money,
-      bool recurrentPayment,
-      String customerId,
-      TinkoffCheckType checkType,
-      String email,
-      TinkoffLanguage language,
-      String merchantIdentifier}) async {
-    assert(_status == TinkoffAcquiringSdkStatus.INITIALIZED);
-    assert(Platform.isIOS);
-    assert(orderId != null);
-    assert(title != null);
-    assert(description != null);
-    assert(money != null);
-    assert(customerId != null);
-    assert(language != null);
-    assert(merchantIdentifier != null);
-
-    final Map<dynamic, dynamic> response =
-        await _channel.invokeMethod('openApplePay', {
-      'orderId': orderId,
-      'title': title,
-      'description': description,
-      'money': money,
-      'recurrentPayment': recurrentPayment,
-      'customerId': customerId,
-      'checkType': checkType != null ? _mapEnumToString(checkType) : null,
-      'email': email,
-      'language': _mapLanguageToPlatform(language),
-      'merchantIdentifier': merchantIdentifier
     });
 
     final TinkoffCommonResponse status =

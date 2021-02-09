@@ -23,9 +23,6 @@ private const val TINKOFF_INITIALIZE_ID = "initialize"
 private val tinkoffInitialize: MethodChannelFunction = safe { call, result, delegate, scope ->
     val methodCallResult = delegate.initialize(
         enableDebug = call.argument("enableDebug") ?: false,
-        terminalKey = call.argument("terminalKey") ?: error("terminalKey is required in initialize method"),
-        password = call.argument("password") ?: error("password is required in initialize method"),
-        publicKey = call.argument("publicKey") ?: error("publicKey is required in initialize method"),
         enableGooglePay = call.argument("enableGooglePay") ?: false,
         requireAddress = call.argument("requireAddress") ?: false,
         requirePhone = call.argument("requirePhone") ?: false
@@ -33,6 +30,19 @@ private val tinkoffInitialize: MethodChannelFunction = safe { call, result, dele
 
     scope.doOnMain { result.success(mapOf(
         "status" to methodCallResult.status.name
+    )) }
+}
+
+private const val TINKOFF_SET_CREDENTIALS = "setCredentials"
+private val tinkoffSetCredentials: MethodChannelFunction = safe { call, result, delegate, scope ->
+    val methodCallResult = delegate.setCredentials(
+        terminalKey = call.argument("terminalKey") ?: error("terminalKey is required in initialize method"),
+        password = call.argument("password") ?: error("password is required in initialize method"),
+        publicKey = call.argument("publicKey") ?: error("publicKey is required in initialize method")
+    )
+
+    scope.doOnMain { result.success(mapOf(
+            "status" to methodCallResult.status.name
     )) }
 }
 
@@ -130,5 +140,6 @@ val tinkoffMethodBundle = mapOf(
     TINKOFF_OPEN_PAYMENT_SCREEN to tinkoffOpenPaymentScreen,
     TINKOFF_OPEN_GOOGLE_PAY to tinkoffOpenGooglePay,
     TINKOFF_OPEN_PAYMENT_QR_SCREEN to tinkoffOpenPaymentQrScreen,
-    TINKOFF_OPEN_SAVED_CARDS_SCREEN to tinkoffOpenSavedCardsScreen
+    TINKOFF_OPEN_SAVED_CARDS_SCREEN to tinkoffOpenSavedCardsScreen,
+    TINKOFF_SET_CREDENTIALS to tinkoffSetCredentials
 )

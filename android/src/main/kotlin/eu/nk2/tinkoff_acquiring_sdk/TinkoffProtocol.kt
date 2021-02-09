@@ -85,7 +85,7 @@ fun TinkoffFeaturesOptions.toTinkoff(): FeaturesOptions {
     if(enableCameraCardScanner) options.cameraCardScanner = CameraCardIOScanner()
     options.darkThemeMode = darkThemeMode
     options.localizationSource = AsdkSource(language)
-
+    options.emailRequired = false
     return options
 }
 
