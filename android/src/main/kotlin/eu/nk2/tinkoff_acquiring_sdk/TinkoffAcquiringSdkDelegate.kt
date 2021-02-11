@@ -58,8 +58,7 @@ class TinkoffAcquiringSdkDelegate(private val activityDelegate: ActivityDelegate
             publicKey: String
     ): TinkoffAcquiringDelegateSetCredentialsResponse {
         tinkoffAcquiring = TinkoffAcquiring(terminalKey, password, publicKey)
-        return if(localEnableDebug) TinkoffAcquiringDelegateSetCredentialsResponse(status = TinkoffAcquiringDelegateSetCredentialsStatus.RESULT_OK)
-        else {
+        return run {
             googlePayHelper = GooglePayHelper(GooglePayParams(
                     terminalKey = terminalKey,
                     environment = if (localEnableDebug) WalletConstants.ENVIRONMENT_TEST else WalletConstants.ENVIRONMENT_PRODUCTION,
