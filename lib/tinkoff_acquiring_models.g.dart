@@ -107,4 +107,6 @@ const _$TinkoffAcquiringCommonStatusEnumMap = {
   TinkoffAcquiringCommonStatus.RESULT_ERROR: 'RESULT_ERROR',
   TinkoffAcquiringCommonStatus.ERROR_NOT_INITIALIZED: 'ERROR_NOT_INITIALIZED',
   TinkoffAcquiringCommonStatus.ERROR_NO_ACTIVITY: 'ERROR_NO_ACTIVITY',
+  TinkoffAcquiringCommonStatus.GOOGLE_PAY_NOT_AVAILABLE:
+      'GOOGLE_PAY_NOT_AVAILABLE'
 };

@@ -29,6 +29,8 @@ class TinkoffError extends Error {
   Map<String, dynamic> toJson() => _$TinkoffErrorToJson(this);
 }
 
+class GooglePayNotAvailable extends TinkoffError {}
+
 /// Internal.
 enum TinkoffAcquiringInitializationStatus {
   NOT_INITIALIZED,
@@ -78,6 +80,7 @@ enum TinkoffAcquiringCommonStatus {
   RESULT_NONE,
   RESULT_ERROR,
   ERROR_NOT_INITIALIZED,
+  GOOGLE_PAY_NOT_AVAILABLE,
   ERROR_NO_ACTIVITY,
   UNKNOWN_ERROR
 }
