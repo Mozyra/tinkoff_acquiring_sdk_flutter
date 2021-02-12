@@ -41,6 +41,30 @@ class TinkoffAcquiringSdkDelegate(private val activityDelegate: ActivityDelegate
         if(activityDelegate.activity !is FragmentActivity) error("Plugin cannot be initialized if activity you are using does not extend FlutterFragmentActivity")
         if(activityDelegate.activity == null || activityDelegate.context == null) return TinkoffAcquiringDelegateInitializeResponse(status = TinkoffAcquiringDelegateInitializeStatus.FLUTTER_NOT_INITIALIZED)
 
+//        fun getIsReadyToPay(result:Result) {
+//            val request = IsReadyToPayRequest.newBuilder()
+//                    .addAllowedPaymentMethod(WalletConstants.PAYMENT_METHOD_CARD)
+//                    .addAllowedPaymentMethod(WalletConstants.PAYMENT_METHOD_TOKENIZED_CARD)
+//                    .build()
+//            val task = _paymentsClient.isReadyToPay(request)
+//            task.addOnCompleteListener(
+//                    { task1-> try
+//                    {
+//                        val task1Result = task1.getResult(ApiException::class.java)
+//                        if (task1Result)
+//                        {
+//                            result.success(true)
+//                        }
+//                        else
+//                        {
+//                            result.success(false)
+//                        }
+//                    }
+//                    catch (exception:ApiException) {
+//                        result.success(false)
+//                    }
+//                    })
+//        }
         localEnableDebug = enableDebug
         localEnableGooglePay = enableGooglePay
         localRequireAddress = requireAddress

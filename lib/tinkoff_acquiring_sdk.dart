@@ -223,7 +223,6 @@ class TinkoffAcquiringSdk {
       if (!kReleaseMode) {
         print(status);
       }
-      throw TinkoffError(message: status.error);
     }
 
     return status;
@@ -282,7 +281,6 @@ class TinkoffAcquiringSdk {
       if (!kReleaseMode) {
         print(status);
       }
-      throw TinkoffError(message: status.error);
     }
 
     return status;
