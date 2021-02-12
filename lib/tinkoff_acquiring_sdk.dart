@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:tinkoff_acquiring_sdk/tinkoff_acquiring_models.dart';
 
@@ -133,8 +134,12 @@ class TinkoffAcquiringSdk {
     if (status.status == TinkoffAcquiringCommonStatus.ERROR_NOT_INITIALIZED)
       throw TinkoffError(message: 'Plugin is not initialized.');
 
-    if (status.error != null) throw TinkoffError(message: status.error);
-
+    if (status.error != null) {
+      if (!kReleaseMode) {
+        print(status);
+      }
+      throw TinkoffError(message: status.error);
+    }
     return status;
   }
 
@@ -157,7 +162,12 @@ class TinkoffAcquiringSdk {
     if (status.status == TinkoffAcquiringCommonStatus.ERROR_NOT_INITIALIZED)
       throw TinkoffError(message: 'Plugin is not initialized.');
 
-    if (status.error != null) throw TinkoffError(message: status.error);
+    if (status.error != null) {
+      if (!kReleaseMode) {
+        print(status);
+      }
+      throw TinkoffError(message: status.error);
+    }
 
     return status;
   }
@@ -209,7 +219,12 @@ class TinkoffAcquiringSdk {
     if (status.status == TinkoffAcquiringCommonStatus.ERROR_NOT_INITIALIZED)
       throw TinkoffError(message: 'Plugin is not initialized.');
 
-    if (status.error != null) throw TinkoffError(message: status.error);
+    if (status.error != null) {
+      if (!kReleaseMode) {
+        print(status);
+      }
+      throw TinkoffError(message: status.error);
+    }
 
     return status;
   }
@@ -263,7 +278,12 @@ class TinkoffAcquiringSdk {
     if (status.status == TinkoffAcquiringCommonStatus.ERROR_NOT_INITIALIZED)
       throw TinkoffError(message: 'Plugin is not initialized.');
 
-    if (status.error != null) throw TinkoffError(message: status.error);
+    if (status.error != null) {
+      if (!kReleaseMode) {
+        print(status);
+      }
+      throw TinkoffError(message: status.error);
+    }
 
     return status;
   }
@@ -294,7 +314,12 @@ class TinkoffAcquiringSdk {
     if (status.status == TinkoffAcquiringCommonStatus.ERROR_NOT_INITIALIZED)
       throw TinkoffError(message: 'Plugin is not initialized.');
 
-    if (status.error != null) throw TinkoffError(message: status.error);
+    if (status.error != null) {
+      if (!kReleaseMode) {
+        print(status);
+      }
+      throw TinkoffError(message: status.error);
+    }
 
     return status;
   }
@@ -332,7 +357,12 @@ class TinkoffAcquiringSdk {
     if (status.status == TinkoffAcquiringCommonStatus.ERROR_NOT_INITIALIZED)
       throw TinkoffError(message: 'Plugin is not initialized.');
 
-    if (status.error != null) throw TinkoffError(message: status.error);
+    if (status.error != null) {
+      if (!kReleaseMode) {
+        print(status);
+      }
+      throw TinkoffError(message: status.error);
+    }
 
     return status;
   }

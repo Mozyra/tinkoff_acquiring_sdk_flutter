@@ -36,7 +36,8 @@ enum TinkoffAcquiringInitializationStatus {
   RESULT_ERROR,
   GOOGLE_PAY_NOT_AVAILABLE,
   FLUTTER_NOT_INITIALIZED,
-  PLUGIN_ALREADY_INITIALIZED
+  PLUGIN_ALREADY_INITIALIZED,
+  UNKNOWN_ERROR
 }
 
 /// Internal.
@@ -77,7 +78,8 @@ enum TinkoffAcquiringCommonStatus {
   RESULT_NONE,
   RESULT_ERROR,
   ERROR_NOT_INITIALIZED,
-  ERROR_NO_ACTIVITY
+  ERROR_NO_ACTIVITY,
+  UNKNOWN_ERROR
 }
 
 /// Common structure with generalized SDK method data responses
